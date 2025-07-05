@@ -31,18 +31,18 @@ app.get("/", (req, res) => {
 
 app.get("/listings", async (req, res) => {
   let allListing = await Listing.find({});
-  res.render("listing/index.ejs", { allListing });
+  res.render("listings/index.ejs", { allListing });
 });
 
 // New Route
 app.get("/listings/new", (req, res) => {
-  res.render("listing/new.ejs");
+  res.render("listings/new.ejs");
 });
 // View Individual Post
 app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
-  res.render("listing/show.ejs", { listing });
+  res.render("listings/show.ejs", { listing });
 });
 
 // Create Listing Route
@@ -57,7 +57,7 @@ app.post("/listings", async (req, res) => {
 app.get("/listings/:id/edit", async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
-  res.render("listing/edit.ejs", { listing });
+  res.render("listings/edit.ejs", { listing });
 });
 
 app.put("/listings/:id", async (req, res) => {
