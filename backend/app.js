@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const Listing = require("./models/listing.js");
 const methodOverride = require("method-override");
+const engine = require('ejs-mate');
 const port = 3001;
 
 main()
@@ -23,6 +24,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.engine("ejs", engine);
+app.use(express.static(path.join(__dirname, "public")));
+
+
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
