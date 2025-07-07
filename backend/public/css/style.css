@@ -6,8 +6,14 @@
 }
 body{
     background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+.container{
+    flex: 1;
+}
 .navbar{
     height: 5rem;
 }
@@ -107,4 +113,13 @@ footer{
 
 .card-links{
     text-decoration: none;
+}
+
+/* Add new Listing */
+.add-btn{
+    background-color: #FF385C;
+}
+.add-btn:hover{
+    background-color: #e03150;  
+    color: #fff;
 }
