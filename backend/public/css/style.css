@@ -1,11 +1,11 @@
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Roboto", sans-serif; 
+    /* margin: 0;
+    padding: 0; 
+    box-sizing: border-box;  */
+   font-family: "Nunito", sans-serif;
 }
 body{
-    background-color: antiquewhite;
+    background-color: #fff;
 }
 
 .navbar{
@@ -44,7 +44,7 @@ footer{
     transition: all 1s ease-out;
 }
 .social-media-container i{
-    font-size: 1.5rem;
+    font-size: 1.4em;
     transition: all 1s ease-in-out;
 }
 .fa-instagram{
@@ -76,4 +76,35 @@ footer{
 .help-links a:hover{
     text-decoration: underline;
     color: #222;
+}
+
+/* Cards */
+.card{
+    border: none;
+    margin-bottom: 2rem;
+    transition: all 2s ease-in-out;
+}
+.card-img-top{
+    border-radius: 1rem;
+    width: 100%;
+}
+.card-text{
+    font-weight: 400;
+}
+.card-body{
+    padding: 0;
+}
+
+.card-img-overlay{
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.card:hover .card-img-overlay{
+    opacity: 0.2;
+    background-color: #fff
+}
+
+.card-links{
+    text-decoration: none;
 }
