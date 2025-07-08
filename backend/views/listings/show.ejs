@@ -1,18 +1,29 @@
 <% layout('layouts/boilerplate')-%>
-  <body>
-    <h3>All Details:</h3>
-    
-    <ul>
-      <li><%= listing.title %></li>
-      <li><%= listing.description %></li>
-      <li>&#8377;<%= listing.price.toLocaleString("en-IN") %></li>
-      <li><%= listing.location %></li>
-      <li><%= listing.country %></li>
-    </ul>
-    <a href="/listings/<%= listing._id %>/edit">Edit</a>
-    <br>
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
-        <button>Delete</button>
+
+<div class="row justify-content-center mt-3">
+  <div class="col-md-8">
+    <div class="card-shadow">
+        <h3 class="mb-4">All Details</h3>
+        <img src="<%= listing.image %>" alt="Listing Image" class="card-img-top img-fluid rounded shadow show-image">
+        <div class="card-body">
+
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">🏠 <strong><%= listing.title %></strong></li>
+            <li class="list-group-item">📝 <%= listing.description %></li>
+            <li class="list-group-item">💰 ₹<%= listing.price.toLocaleString("en-IN") %> /night</li>
+            <li class="list-group-item">📍 <%= listing.location %></li>
+            <li class="list-group-item">🌍 <%= listing.country %></li>
+          </ul>
+          <div class="mt-4 mb-3">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-primary me-4">Edit</a>
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" class="d-inline">
+        <button class="btn btn-outline-danger">Delete</button>
     </form>
-  </body>
+          </div>
+    </div>
+  </div>
+</div>
+</div> 
+   
+
 

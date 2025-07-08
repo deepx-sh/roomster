@@ -135,3 +135,12 @@ footer{
         background-color: #005983;
         color: #fff;
     }
+
+
+/* Show Page */
+.show-image{
+    max-height: 300px; 
+    width: 100%;
+    height: auto; 
+    object-fit: cover;
+}
