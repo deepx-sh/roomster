@@ -144,3 +144,22 @@ footer{
     height: auto; 
     object-fit: cover;
 }
+
+.edit-btn{
+    background-color: #0077B5;
+    color: #fff;
+}
+.edit-btn:hover{
+   background-color: #005983;
+        color: #fff; 
+}
+
+.dlt-btn{
+    background-color: #FF385C;
+    color: #fff;
+    }
+
+    .dlt-btn:hover {
+        background-color: #e03150;
+        color: #fff;
+}
