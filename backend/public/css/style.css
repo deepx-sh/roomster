@@ -155,11 +155,11 @@ footer{
 }
 
 .dlt-btn{
-    background-color: #FF385C;
-    color: #fff;
-    }
+background-color: #FF385C; 
+color: #fff;
+}
 
-    .dlt-btn:hover {
+.dlt-btn:hover {
         background-color: #e03150;
         color: #fff;
 }
