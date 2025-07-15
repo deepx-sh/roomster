@@ -6,6 +6,7 @@ const path = require("path");
 const Listing = require("./models/listing.js");
 const methodOverride = require("method-override");
 const engine = require('ejs-mate');
+const wrapAsync=require('./utils/wrapAsync.js')
 const port = 3001;
 
 main()
@@ -51,16 +52,14 @@ app.get("/listings/:id", async (req, res) => {
 });
 
 // Create Listing Route
-app.post("/listings", async (req, res,next) => {
+app.post("/listings", wrapAsync(async (req, res,next) => {
   // create new instance
-  try {
+  
     const newListing = await new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
-  } catch (err) {
-    next(err)
- }
-});
+  
+}));
 
 // Update Route
 app.get("/listings/:id/edit", async (req, res) => {
