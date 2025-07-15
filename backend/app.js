@@ -106,7 +106,7 @@ app.use((req, res, next) => {
 // Custom Error Handling Middleware
 app.use((err, req, res, next) => {
   let { statusCode=500, message="Something went wrog!" } = err;
-  res.status(statusCode).send(message);
+  res.status(statusCode).render("Error.ejs",{err})
 });
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
