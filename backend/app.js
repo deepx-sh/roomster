@@ -51,11 +51,15 @@ app.get("/listings/:id", async (req, res) => {
 });
 
 // Create Listing Route
-app.post("/listings", async (req, res) => {
-  // create new insta
-  const newListing = await new Listing(req.body.listing);
+app.post("/listings", async (req, res,next) => {
+  // create new instance
+  try {
+    const newListing = await new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
+  } catch (err) {
+    next(err)
+ }
 });
 
 // Update Route
@@ -90,6 +94,10 @@ app.delete("/listings/:id", async (req, res) => {
 // });
 
 
+// Custom Error Handling Middleware
+app.use((err, req, res, next) => {
+  res.send("Something went wrong!")
+})
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
