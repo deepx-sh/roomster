@@ -2,7 +2,7 @@
 <div class="row mt-3">
   <div class="col-8 offset-2">
     <h2>Edit Listing</h2>
-    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation" novalidate>
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -11,7 +11,10 @@
           name="listing[title]"
           id="title"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a valid title.</div>
       </div>
 
       <div class="mb-3">
@@ -21,9 +24,12 @@
           name="listing[description]"
           id="title"
           class="form-control"
+          required
         >
 <%= listing.description %></textarea
         >
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a short description.</div>
       </div>
 
       <div class="mb-3">
@@ -34,7 +40,10 @@
           name="listing[image]"
           id="image"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a valid image link.</div>
       </div>
 
       <div class="row">
@@ -46,7 +55,10 @@
             name="listing[price]"
             id="price"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a valid price.</div>
         </div>
 
         <div class="mb-3 col-md-8   ">
@@ -57,8 +69,12 @@
             name="listing[location]"
             id="location"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a valid location.</div>
         </div>
+        
       </div>
 
       <div class="mb-3">
@@ -69,7 +85,10 @@
           name="listing[country]"
           id="country"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a valid country.</div>
       </div>
 
       <button class="btn mt-3 edt-btn mb-2">Edit</button>
