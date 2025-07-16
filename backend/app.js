@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const listingSchema = require("./schema.js");
 const port = 3001;
 
 main()
@@ -35,29 +36,48 @@ app.get("/", (req, res) => {
 
 // Index Route
 
-app.get("/listings", wrapAsync(async (req, res) => {
-  let allListing = await Listing.find({});
-  res.render("listings/index.ejs", { allListing });
-}));
+app.get(
+  "/listings",
+  wrapAsync(async (req, res) => {
+    let allListing = await Listing.find({});
+    res.render("listings/index.ejs", { allListing });
+  })
+);
 
 // New Route
 app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
 });
 // View Individual Post
-app.get("/listings/:id", wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/show.ejs", { listing });
-}));
+app.get(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs", { listing });
+  })
+);
 
 // Create Listing Route
 app.post(
   "/listings",
   wrapAsync(async (req, res, next) => {
     // create new instance
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Bad Request");
+    // Here this if condition is only check if listing object is present or not if not then it will give error
+    // But Here it will not check inside listing object individual field validation
+    // For Individual field Validation we used two ways one we write if conditon for all field but this make code bulky
+    // So we use second way in this we used joi tool which is used for server side schema validation
+    // Which validate individual field
+    // if (!req.body.listing) {
+    //   throw new ExpressError(400, "Bad Request");
+    // }
+    // // Like this we check validate for individul field but this make code bulky so we used joi
+    // if (!req.body.listing.title) {
+    //   throw new ExpressError(400,"Title is required")
+    // }
+    let result = listingSchema.validate(req.body);
+    if (result.error) {
+      throw new ExpressError(400, result.error);
     }
     const newListing = await new Listing(req.body.listing);
     await newListing.save();
@@ -66,26 +86,35 @@ app.post(
 );
 
 // Update Route
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/edit.ejs", { listing });
-}));
+app.get(
+  "/listings/:id/edit",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs", { listing });
+  })
+);
 
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-   if (!req.body.listing) {
+app.put(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    if (!req.body.listing) {
       throw new ExpressError(400, "Bad Request");
     }
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  res.redirect(`/listings/${id}`);
-}));
+    let { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    res.redirect(`/listings/${id}`);
+  })
+);
 
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  res.redirect("/listings");
-}));
+app.delete(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndDelete(id);
+    res.redirect("/listings");
+  })
+);
 // app.get("/testListing", async (req, res) => {
 //   let sampleTest = new Listing({
 //     title: "Deep Villa",
@@ -105,8 +134,8 @@ app.use((req, res, next) => {
 });
 // Custom Error Handling Middleware
 app.use((err, req, res, next) => {
-  let { statusCode=500, message="Something went wrog!" } = err;
-  res.status(statusCode).render("Error.ejs",{err})
+  let { statusCode = 500, message = "Something went wrog!" } = err;
+  res.status(statusCode).render("Error.ejs", { err });
 });
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
