@@ -58,9 +58,21 @@ app.get(
   })
 );
 
+// This middleware bind the logic of the joi tool
+let validatelistingSchema = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  console.log(error);
+  if (error) {
+    const msg = error.map((el) => el.message).join(", ");
+    throw new ExpressError(400, error);
+  } else {
+    next();
+  }
+};
 // Create Listing Route
 app.post(
   "/listings",
+  validatelistingSchema,
   wrapAsync(async (req, res, next) => {
     // create new instance
     // Here this if condition is only check if listing object is present or not if not then it will give error
@@ -75,10 +87,11 @@ app.post(
     // if (!req.body.listing.title) {
     //   throw new ExpressError(400,"Title is required")
     // }
-    let result = listingSchema.validate(req.body);
-    if (result.error) {
-      throw new ExpressError(400, result.error);
-    }
+    // let result = listingSchema.validate(req.body);
+    // if (result.error) {
+    //   throw new ExpressError(400, result.error);
+    // }
+    // Above code is comment out because we create another middleware to bind joi tool logic
     const newListing = await new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -97,10 +110,11 @@ app.get(
 
 app.put(
   "/listings/:id",
+  validatelistingSchema,
   wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Bad Request");
-    }
+    // if (!req.body.listing) {
+    //   throw new ExpressError(400, "Bad Request");
+    // }
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
