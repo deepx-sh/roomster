@@ -1,14 +1,13 @@
 <% layout('layouts/boilerplate')-%>
 
-<div class="row justify-content-center mt-3">
+<div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card-shadow">
-        <h3 class="mb-4">All Details</h3>
+        <h3 class="mb-4">🏠 <%= listing.title %></h3>
         <img src="<%= listing.image %>" alt="Listing Image" class="card-img-top img-fluid rounded shadow show-image">
         <div class="card-body">
 
           <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">🏠 <strong><%= listing.title %></strong></li>
             <li class="list-group-item">📝 <%= listing.description %></li>
             <li class="list-group-item">💰 ₹<%= listing.price.toLocaleString("en-IN") %> /night</li>
             <li class="list-group-item">📍 <%= listing.location %></li>
