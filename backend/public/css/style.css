@@ -163,3 +163,14 @@ color: #fff;
         background-color: #e03150;
         color: #fff;
 }
+
+/* Review Button */
+.rev-btn{
+    background-color: #f7b731;
+    color: #fff;
+    }
+
+    .rev-btn:hover {
+        background-color: #e1a025;
+        color: #fff;
+}

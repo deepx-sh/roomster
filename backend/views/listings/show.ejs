@@ -3,26 +3,66 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card-shadow">
-        <h3 class="mb-4">🏠 <%= listing.title %></h3>
-        <img src="<%= listing.image %>" alt="Listing Image" class="card-img-top img-fluid rounded shadow show-image">
-        <div class="card-body">
+      <h3 class="mb-4">🏠 <%= listing.title %></h3>
+      <img
+        src="<%= listing.image %>"
+        alt="Listing Image"
+        class="card-img-top img-fluid rounded shadow show-image"
+      />
+      <div class="card-body">
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">📝 <%= listing.description %></li>
+          <li class="list-group-item">
+            💰 ₹<%= listing.price.toLocaleString("en-IN") %> /night
+          </li>
+          <li class="list-group-item">📍 <%= listing.location %></li>
+          <li class="list-group-item">🌍 <%= listing.country %></li>
+        </ul>
+        <div class="mt-4 mb-3">
+          <a
+            href="/listings/<%= listing._id %>/edit"
+            class="btn btn-outline-primary me-4 edit-btn"
+            >Edit</a
+          >
+          <form
+            action="/listings/<%= listing._id %>?_method=DELETE"
+            method="post"
+            class="d-inline"
+          >
+            <button class="btn btn-outline-danger dlt-btn">Delete</button>
+          </form>
+        </div>
+        <hr>
+        <div class="mt-5">
+          <h4 class="mb-3">Leave a Review</h4>
+          <form>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input
+                type="range"
+                min="1"
+                max="5"
+                step="1"
+                id="rating"
+                name="review[rating]"
+                class="form-range"
+              />
+            </div>
 
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">📝 <%= listing.description %></li>
-            <li class="list-group-item">💰 ₹<%= listing.price.toLocaleString("en-IN") %> /night</li>
-            <li class="list-group-item">📍 <%= listing.location %></li>
-            <li class="list-group-item">🌍 <%= listing.country %></li>
-          </ul>
-          <div class="mt-4 mb-3">
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-primary me-4 edit-btn">Edit</a>
-            <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" class="d-inline">
-        <button class="btn btn-outline-danger dlt-btn">Delete</button>
-    </form>
-          </div>
+            <div class="mb-3">
+              <label for="comment" class="form-label">Comment</label>
+              <textarea
+                name="review[comment]"
+                id="comment"
+                rows="5"
+                class="form-control"
+              ></textarea>
+            </div>
+
+            <button class="btn mb-2 rev-btn">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</div> 
-   
-
-
