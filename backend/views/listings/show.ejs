@@ -32,10 +32,10 @@
             <button class="btn btn-outline-danger dlt-btn">Delete</button>
           </form>
         </div>
-        <hr>
+        <hr />
         <div class="mt-5">
           <h4 class="mb-3">Leave a Review</h4>
-          <form>
+          <form action="/listings/<%= listing._id %>/reviews" method="POST">
             <div class="mb-3">
               <label for="rating" class="form-label">Rating</label>
               <input
