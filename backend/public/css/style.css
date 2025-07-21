@@ -85,7 +85,7 @@ footer{
 }
 
 /* Cards */
-.card{
+.listing-card{
     border: none;
     margin-bottom: 2rem;
     transition: all 2s ease-in-out;
