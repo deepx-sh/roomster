@@ -64,6 +64,13 @@
             <button class="btn mb-2 rev-btn">Submit</button>
           </form>
         </div>
+        <hr>
+        <h4>All Reviews</h4>
+        <ul>
+          <% for(review of listing.reviews){ %>
+            <li><%= review.comment %>, <%= review.rating %></li>
+            <% } %>
+        </ul>
       </div>
     </div>
   </div>
