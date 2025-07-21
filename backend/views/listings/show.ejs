@@ -35,7 +35,7 @@
         <hr />
         <div class="mt-5">
           <h4 class="mb-3">Leave a Review</h4>
-          <form action="/listings/<%= listing._id %>/reviews" method="POST">
+          <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
             <div class="mb-3">
               <label for="rating" class="form-label">Rating</label>
               <input
@@ -56,7 +56,9 @@
                 id="comment"
                 rows="5"
                 class="form-control"
+                required
               ></textarea>
+              <div class="invalid-feedback">Please write a review first</div>
             </div>
 
             <button class="btn mb-2 rev-btn">Submit</button>
