@@ -158,6 +158,17 @@ app.post(
     res.redirect(`/listings/${listing._id}`);
   })
 );
+
+// Delete Route for Review Delete
+app.delete(
+  "/listings/:id/reviews/:reviewId",
+  wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`);
+  })
+);
 // app.get("/testListing", async (req, res) => {
 //   let sampleTest = new Listing({
 //     title: "Deep Villa",
