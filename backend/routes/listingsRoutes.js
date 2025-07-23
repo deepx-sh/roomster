@@ -3,9 +3,8 @@ const router = express.Router();
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
-const Review = require("../models/review.js");
-// const listingSchema = require("../schema.js");
-const { listingSchema, reviewSchema } = require('../schema.js')
+
+const { listingSchema} = require('../schema.js')
 
 
 // This middleware bind the logic of the joi tool
