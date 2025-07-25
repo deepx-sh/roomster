@@ -8,7 +8,8 @@ const engine = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoutes = require('./routes/listingsRoutes.js')
-const reviewsRoutes=require('./routes/reviewsRoutes.js')
+const reviewsRoutes = require('./routes/reviewsRoutes.js')
+const session = require('express-session');
 const port = 3001;
 
 main()
@@ -30,6 +31,13 @@ app.use(methodOverride("_method"));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "public")));
 
+const sessionOptions = {
+  secret: 'jhgaseuohohase',
+  resave: false,
+  saveUninitialized: true,
+}
+
+app.use(session(sessionOptions));
 // Listing routes
 app.use("/listings", listingsRoutes)
 
