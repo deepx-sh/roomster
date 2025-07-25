@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const listingsRoutes = require('./routes/listingsRoutes.js')
 const reviewsRoutes = require('./routes/reviewsRoutes.js')
 const session = require('express-session');
+const flash = require('connect-flash');
 const port = 3001;
 
 main()
@@ -43,6 +44,12 @@ const sessionOptions = {
 }
 
 app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("successMsg");
+  next()
+})
 // Listing routes
 app.use("/listings", listingsRoutes)
 

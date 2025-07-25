@@ -67,6 +67,7 @@ router.post(
     // Above code is comment out because we create another middleware to bind joi tool logic
     const newListing = await new Listing(req.body.listing);
     await newListing.save();
+    req.flash("successMsg", "Listing created successfully!");
     res.redirect("/listings");
   })
 );
