@@ -7,10 +7,10 @@ const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const listingsRoutes = require('./routes/listingsRoutes.js')
-const reviewsRoutes = require('./routes/reviewsRoutes.js')
-const session = require('express-session');
-const flash = require('connect-flash');
+const listingsRoutes = require("./routes/listingsRoutes.js");
+const reviewsRoutes = require("./routes/reviewsRoutes.js");
+const session = require("express-session");
+const flash = require("connect-flash");
 const port = 3001;
 
 main()
@@ -33,25 +33,25 @@ app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionOptions = {
-  secret: 'jhgaseuohohase',
+  secret: "jhgaseuohohase",
   resave: false,
   saveUninitialized: true,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly:true
-  }
-}
+    httpOnly: true,
+  },
+};
 
 app.use(session(sessionOptions));
 app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("successMsg");
-  next()
-})
+  next();
+});
 // Listing routes
-app.use("/listings", listingsRoutes)
+app.use("/listings", listingsRoutes);
 
 // Reviews Route
 app.use("/listings/:id/reviews", reviewsRoutes);
