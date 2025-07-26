@@ -11,6 +11,9 @@ const listingsRoutes = require("./routes/listingsRoutes.js");
 const reviewsRoutes = require("./routes/reviewsRoutes.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require('passport');
+const LocalStategy = require('passport-local');
+const User=require('./models/user.js')
 const port = 3001;
 
 main()
@@ -45,6 +48,13 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+app.use(passport.initialize()); //Start Passport middleware
+app.use(passport.session()); //Connect Passport to session system
+
+passport.use(new LocalStategy(User.authenticate())); //	Define login strategy
+passport.serializeUser(User.serializeUser()); //Handle user session storing
+passport.deserializeUser(User.deserializeUser()); //Handle user session retrieving
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("successMsg");
