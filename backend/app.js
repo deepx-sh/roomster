@@ -9,6 +9,7 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoutes = require("./routes/listingsRoutes.js");
 const reviewsRoutes = require("./routes/reviewsRoutes.js");
+const userRoutes=require('./routes/usersRoutes.js')
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require('passport');
@@ -66,6 +67,9 @@ app.use("/listings", listingsRoutes);
 
 // Reviews Route
 app.use("/listings/:id/reviews", reviewsRoutes);
+
+// Users Route
+app.use("/",userRoutes)
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
