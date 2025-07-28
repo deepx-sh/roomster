@@ -59,7 +59,7 @@ passport.deserializeUser(User.deserializeUser()); //Handle user session retrievi
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("successMsg");
-  res.locals.errorMsg = req.flash("errorMsg");
+  res.locals.error = req.flash("error");
   next();
 });
 // Listing routes
