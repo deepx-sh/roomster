@@ -4,7 +4,8 @@ const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 
-const { listingSchema} = require('../schema.js')
+const { listingSchema } = require('../schema.js')
+const {isLoggedIn}=require("../middleware.js")
 
 
 // This middleware bind the logic of the joi tool
@@ -29,7 +30,7 @@ router.get(
 );
 
 // New Route
-router.get("/new", (req, res) => {
+router.get("/new",isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 // View Individual Post
@@ -48,7 +49,7 @@ router.get(
 
 // Create Listing Route
 router.post(
-  "/",
+  "/",isLoggedIn,
   validatelistingSchema,
   wrapAsync(async (req, res, next) => {
     // create new instance
@@ -78,7 +79,7 @@ router.post(
 
 // Update Route
 router.get(
-  "/:id/edit",
+  "/:id/edit",isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -91,7 +92,7 @@ router.get(
 );
 
 router.put(
-  "/:id",
+  "/:id",isLoggedIn,
   validatelistingSchema,
   wrapAsync(async (req, res) => {
     // if (!req.body.listing) {
@@ -105,7 +106,7 @@ router.put(
 );
 
 router.delete(
-  "/:id",
+  "/:id",isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
