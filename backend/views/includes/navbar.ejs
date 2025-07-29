@@ -1,25 +1,54 @@
-<nav class="navbar navbar-expand-md bg-body-secondary border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"
-      ><i class="fa-solid fa-earth-americas"></i><span>Roomsters</span></a
-    >
+<nav class="navbar navbar-expand-md bg-light shadow-sm sticky-top">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-primary" href="/">
+      <i class="fa-solid fa-earth-americas"></i>
+      <span>Roomsters</span>
+    </a>
+
+    <!-- Toggle button (mobile) -->
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listing</a>
-        <a class="nav-link" href="/listings/new">Add New</a>
-      </div>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left-aligned navigation -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings">All Listings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Add New</a>
+        </li>
+      </ul>
+
+      <!-- Right-aligned auth buttons -->
+      <ul class="navbar-nav">
+        <% if (!currUser) { %>
+          <li class="nav-item">
+            <a class="btn btn-outline-primary me-2" href="/signup">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-success" href="/login">Log In</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="btn btn-outline-danger" href="/logout">Log Out</a>
+          </li>
+        <% } %>
+      </ul>
     </div>
   </div>
 </nav>
