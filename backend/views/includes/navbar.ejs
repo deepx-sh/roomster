@@ -38,14 +38,14 @@
       <ul class="navbar-nav">
         <% if (!currUser) { %>
           <li class="nav-item">
-            <a class="btn btn-outline-primary me-2" href="/signup">Sign Up</a>
+            <a class="nav-link" href="/signup">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-outline-success" href="/login">Log In</a>
+            <a class="nav-link" href="/login">Log In</a>
           </li>
         <% } else { %>
           <li class="nav-item">
-            <a class="btn btn-outline-danger" href="/logout">Log Out</a>
+            <a class="nav-link text-danger fw-semibold" href="/logout">Log Out</a>
           </li>
         <% } %>
       </ul>
