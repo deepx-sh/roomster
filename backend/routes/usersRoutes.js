@@ -16,8 +16,13 @@ router.post(
       const newUser = await new User({ email, username });
       const registerUser = await User.register(newUser, password);
       console.log(registerUser);
-      req.flash("successMsg", "Welcome to Roomsters!");
-      res.redirect("/listings");
+      req.login(registerUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash("successMsg", "Welcome to Roomsters!");
+        res.redirect("/listings");
+      });
     } catch (error) {
       req.flash("error", error.message);
       res.redirect("/signup");
@@ -48,6 +53,6 @@ router.get("/logout", (req, res, next) => {
     }
     req.flash("successMsg", "You have been logged out successfully!");
     res.redirect("/listings");
-  })
-})
+  });
+});
 module.exports = router;
