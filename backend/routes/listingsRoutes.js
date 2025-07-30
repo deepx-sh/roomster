@@ -5,7 +5,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 
 const { listingSchema } = require('../schema.js')
-const {isLoggedIn}=require("../middleware.js")
+const {isLoggedIn,isOwner}=require("../middleware.js")
 
 
 // This middleware bind the logic of the joi tool
@@ -82,7 +82,7 @@ router.post(
 
 // Update Route
 router.get(
-  "/:id/edit",isLoggedIn,
+  "/:id/edit",isLoggedIn,isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -95,7 +95,7 @@ router.get(
 );
 
 router.put(
-  "/:id",isLoggedIn,
+  "/:id",isLoggedIn,isOwner,
   validatelistingSchema,
   wrapAsync(async (req, res) => {
     // if (!req.body.listing) {
@@ -109,7 +109,7 @@ router.put(
 );
 
 router.delete(
-  "/:id",isLoggedIn,
+  "/:id",isLoggedIn,isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
