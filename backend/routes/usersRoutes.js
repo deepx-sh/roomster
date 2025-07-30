@@ -2,6 +2,7 @@ const express = require("express");
 const wrapAsync = require("../utils/wrapAsync");
 const User = require("../models/user.js");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../middleware.js");
 const router = express.Router();
 
 router.get("/signup", (req, res) => {
@@ -35,14 +36,15 @@ router.get("/login", (req, res) => {
 });
 
 router.post(
-  "/login",
+  "/login",saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
   async (req, res) => {
     req.flash("successMsg", "Welcome back to Roomsters!");
-    res.redirect("/listings");
+    let redirectUrl=res.locals.redirectUrl || "/listings"
+    res.redirect(redirectUrl);
   }
 );
 
