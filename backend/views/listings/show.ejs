@@ -19,6 +19,7 @@
           <li class="list-group-item">📍 <%= listing.location %></li>
           <li class="list-group-item">🌍 <%= listing.country %></li>
         </ul>
+        <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
         <div class="mt-4 mb-3">
           <a
             href="/listings/<%= listing._id %>/edit"
@@ -33,6 +34,7 @@
             <button class="btn btn-outline-danger dlt-btn">Delete</button>
           </form>
         </div>
+           <% } %>
         <hr />
         <div class="mt-5">
           <h4 class="mb-3">Leave a Review</h4>
