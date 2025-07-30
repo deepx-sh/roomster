@@ -11,6 +11,7 @@
       />
       <div class="card-body">
         <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">👤 <%= listing.owner.username %></li>
           <li class="list-group-item">📝 <%= listing.description %></li>
           <li class="list-group-item">
             💰 ₹<%= listing.price.toLocaleString("en-IN") %> /night

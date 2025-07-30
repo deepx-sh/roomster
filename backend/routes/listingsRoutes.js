@@ -38,11 +38,13 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     if (!listing) {
       req.flash("error", "Listing not found");
       return res.redirect("/listings");
     }
+    console.log(listing);
+    
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -71,6 +73,7 @@ router.post(
     // }
     // Above code is comment out because we create another middleware to bind joi tool logic
     const newListing = await new Listing(req.body.listing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("successMsg", "Listing created successfully!");
     res.redirect("/listings");
