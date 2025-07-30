@@ -2,23 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
-
-const { listingSchema } = require('../schema.js')
-const {isLoggedIn,isOwner}=require("../middleware.js")
+const {isLoggedIn,isOwner,validatelistingSchema}=require("../middleware.js")
 
 
-// This middleware bind the logic of the joi tool
-let validatelistingSchema = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  console.log(error);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(", ");
-    throw new ExpressError(400, msg);
-  } else {
-    next();
-  }
-};
+
 // Index Route
 
 router.get(

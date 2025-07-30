@@ -1,4 +1,7 @@
 const Listing = require("./models/listing");
+const ExpressError = require("./utils/ExpressError.js");
+
+const { listingSchema,reviewSchema } = require('./schema.js')
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -26,3 +29,26 @@ module.exports.isOwner = async(req, res, next) => {
   }
   next();
 }
+
+// This middleware bind the logic of the joi tool
+module.exports.validatelistingSchema = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  console.log(error);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(", ");
+    throw new ExpressError(400, msg);
+  } else {
+    next();
+  }
+};
+
+
+module.exports.validatereviewSchema = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(", ");
+    throw new ExpressError(400, msg);
+  } else {
+    next();
+  }
+};
