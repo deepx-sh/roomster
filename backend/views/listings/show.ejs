@@ -19,6 +19,7 @@
           <li class="list-group-item">📍 <%= listing.location %></li>
           <li class="list-group-item">🌍 <%= listing.country %></li>
         </ul>
+        <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
         
         <div class="mt-4 mb-3">
           <a
@@ -34,7 +35,9 @@
             <button class="btn btn-outline-danger dlt-btn">Delete</button>
           </form>
         </div>
+        <% } %>
         <hr />
+        <% if(currUser){ %>
         <div class="mt-5">
           <h4 class="mb-3">Leave a Review</h4>
           <form
@@ -70,8 +73,10 @@
 
             <button class="btn mb-2 rev-btn">Submit</button>
           </form>
+                  <hr />
         </div>
-        <hr />
+                <% } %>
+
         <!-- All Reviews Section -->
         <div class="mt-5 mb-3">
           <h4 class="mb-4">All Reviews</h4>

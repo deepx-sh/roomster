@@ -5,18 +5,19 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Review = require("../models/review.js");
 const Listing = require("../models/listing.js");
-const {validatereviewSchema}=require("../middleware.js")
+const {validatereviewSchema, isLoggedIn}=require("../middleware.js")
 
 // Review
 // Post Route for review add for specific listing
 router.post(
-  "/",
+  "/",isLoggedIn,
   validatereviewSchema,
   wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
 
     listing.reviews.push(newReview);
+    newReview.author = req.user._id;
     await newReview.save();
     await listing.save();
     req.flash("successMsg", "Review added successfully!");
