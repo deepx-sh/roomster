@@ -1,4 +1,5 @@
 const Listing = require("./models/listing");
+const Review = require("./models/review");
 const ExpressError = require("./utils/ExpressError.js");
 
 const { listingSchema,reviewSchema } = require('./schema.js')
@@ -7,7 +8,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     //It checks if the current request has an authenticated (logged-in) user.
     req.session.redirectUrl = req.originalUrl;
-    req.flash("error", "You must be signed in to create a new listing");
+    req.flash("error", "You must be signed in first!");
     return res.redirect("/login");
   }
   next();
@@ -52,3 +53,14 @@ module.exports.validatereviewSchema = (req, res, next) => {
     next();
   }
 };
+
+// Middleware for Delete review only owner of the review delete the review
+module.exports.isReviewAuthor = async(req, res, next) => {
+  let { id ,reviewId} = req.params;
+  let review = await Review.findById(reviewId);
+  if (!review.author.equals(res.locals.currUser._id)) {
+    req.flash("error", "You do not have permission to do that");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
+}
