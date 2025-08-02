@@ -41,9 +41,12 @@ module.exports.createListing=async (req, res, next) => {
     // if (result.error) {
     //   throw new ExpressError(400, result.error);
     // }
-    // Above code is comment out because we create another middleware to bind joi tool logic
+  // Above code is comment out because we create another middleware to bind joi tool logic
+    let url = req.file.path;
+    let filename = req.file.filename;
     const newListing = await new Listing(req.body.listing);
     newListing.owner = req.user._id;
+    newListing.image= { url, filename};
     await newListing.save();
     req.flash("successMsg", "Listing created successfully!");
     res.redirect("/listings");
