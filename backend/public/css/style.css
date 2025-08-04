@@ -179,3 +179,9 @@ color: #fff;
         background-color: #e1a025;
         color: #fff;
 }
+
+/* Map */
+#map { 
+height: 250px;
+width: 100%; 
+}
