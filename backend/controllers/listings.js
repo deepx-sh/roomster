@@ -1,4 +1,5 @@
 const Listing = require("../models/listing.js");
+const getCoordinates = require("../utils/geocode.js");
 module.exports.index = async (req, res) => {
   let allListing = await Listing.find({});
   res.render("listings/index.ejs", { allListing });
@@ -39,14 +40,27 @@ module.exports.createListing = async (req, res, next) => {
   //   throw new ExpressError(400, result.error);
   // }
   // Above code is comment out because we create another middleware to bind joi tool logic
-  let url = req.file.path;
-  let filename = req.file.filename;
-  const newListing = await new Listing(req.body.listing);
-  newListing.owner = req.user._id;
-  newListing.image = { url, filename };
-  await newListing.save();
-  req.flash("successMsg", "Listing created successfully!");
-  res.redirect("/listings");
+  try {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    const newListing = await new Listing(req.body.listing);
+    newListing.owner = req.user._id;
+    newListing.image = { url, filename };
+
+    // Geo Code
+    let address = req.body.listing.location;
+    const { lat, lng } = await getCoordinates(address);
+    newListing.geometry = {
+      type: "Point",
+      coordinates: [lng, lat],
+    };
+    await newListing.save();
+    req.flash("successMsg", "Listing created successfully!");
+    res.redirect("/listings");
+  } catch (err) {
+    req.flash("error", "Failed to create listing");
+    res.redirect("/listings/new");
+  }
 };
 
 module.exports.renderEditForm = async (req, res) => {
@@ -57,8 +71,8 @@ module.exports.renderEditForm = async (req, res) => {
     return res.redirect("/listings");
   }
   let originalImageUrl = listing.image.url;
-  originalImageUrl.replace("/upload","/upload/h_50,w_100")
-  res.render("listings/edit.ejs", { listing,originalImageUrl });
+  originalImageUrl.replace("/upload", "/upload/h_50,w_100");
+  res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
 module.exports.updateListing = async (req, res) => {
