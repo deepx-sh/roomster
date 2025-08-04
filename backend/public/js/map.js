@@ -7,4 +7,4 @@ const [lng, lat] = coordinates;
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-const marker = L.marker([lat,lng]).addTo(map);
+const marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${listing.title}</b><br>${listing.location}<br>₹${listing.price}`);;
