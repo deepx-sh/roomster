@@ -1,9 +1,86 @@
 <% layout('layouts/boilerplate')-%>
-  <h4>All Listings</h4>
+  <!-- <h4>All Listings</h4> -->
   <!-- <form action="/listings/new" method="get">
         <button>New Listing</button>
     </form> -->
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <style>
+      #filters{
+        display: flex;
+        gap: 1rem;
+      }
+      .filter{
+        text-align: center;
+        margin-top: 1rem;
+        opacity: 0.8;
+      }
+      .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+      }
+      .filter-text{
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+    </style>
+  <div id="filters">
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+      <p class="filter-text">Trending</p>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+      <p class="filter-text">Beach</p>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-city"></i></div>
+      <p class="filter-text">Cities</p>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-eye"></i></div>
+      <p class="filter-text">Amazing views</p>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-mountain"></i></div>
+      <p class="filter-text">Mountains</p>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-tree"></i></div>
+      <p class="filter-text">Nature</p>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><i class="fa-solid fa-house-chimney"></i></div>
+      <p class="filter-text">Homestays</p>
+    </div>
+     <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-house"></i></div>
+    <p class="filter-text">Cabins</p>
+  </div>
+  <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-sun"></i></div>
+    <p class="filter-text">Desert</p>
+  </div>
+  <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-campground"></i></div>
+    <p class="filter-text">Camping</p>
+  </div>
+  <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-gem"></i></div>
+    <p class="filter-text">Luxe</p>
+  </div>
+  <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-landmark"></i></div>
+    <p class="filter-text">Historical</p>
+  </div>
+  <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-person-swimming"></i></div>
+    <p class="filter-text">Pools</p>
+  </div>
+  <div class="filter">
+    <div class="filter-icon"><i class="fa-solid fa-chess-rook"></i></div>
+    <p class="filter-text">Castles</p>
+  </div>
+  </div>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for( let listing of allListing ) { %>
     <a href="/listings/<%= listing._id %>"
       class="card-links">
