@@ -27,9 +27,21 @@ const listingSchema = new mongoose.Schema({
   category: {
     type: String,
     enum:[
-      "trending", "beach", "city", "amazing views", "mountain", "nature", "homestay",
-      "cabin", "desert", "camping", "luxe", "historical", "pools", "castles"
-    ],
+  "trending",
+  "beach",
+  "cities",
+  "amazing views",
+  "mountains",
+  "nature",
+  "homestays",
+  "cabin",
+  "desert",
+  "camping",
+  "luxe",
+  "historical",
+  "pools",
+  "castles",
+],
   },
   reviews: [
     {

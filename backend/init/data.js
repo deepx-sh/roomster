@@ -1,18 +1,18 @@
 const categories = [
-  "Trending",
-  "Beach",
-  "Cities",
-  "Amazing views",
-  "Mountains",
-  "Nature",
-  "Homestays",
-  "Cabins",
-  "Desert",
-  "Camping",
-  "Luxe",
-  "Historical",
-  "Pools",
-  "Castles",
+  "trending",
+  "beach",
+  "cities",
+  "amazing views",
+  "mountains",
+  "nature",
+  "homestays",
+  "cabin",
+  "desert",
+  "camping",
+  "luxe",
+  "historical",
+  "pools",
+  "castles",
 ];
 const sampleListings = [
   {
@@ -367,10 +367,18 @@ const sampleListings = [
 
 
 
-// Add random category
 for (let listing of sampleListings) {
   const randomIndex = Math.floor(Math.random() * categories.length);
   listing.category = categories[randomIndex];
+
+  // Add geometry field with fake coordinates
+  listing.geometry = {
+    type: "Point",
+    coordinates: [
+      parseFloat((Math.random() * 180 - 90).toFixed(6)),  // Longitude: -90 to 90
+      parseFloat((Math.random() * 360 - 180).toFixed(6))  // Latitude: -180 to 180
+    ]
+  };
 }
 
 module.exports = { data: sampleListings };
