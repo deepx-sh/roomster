@@ -1,8 +1,18 @@
 const Listing = require("../models/listing.js");
 const getCoordinates = require("../utils/geocode.js");
+
 module.exports.index = async (req, res) => {
-  let allListing = await Listing.find({});
-  res.render("listings/index.ejs", { allListing });
+
+  // let allListing = await Listing.find({});
+  const {category}=req.query;
+  let allListing;
+  if(category){
+    allListing=await Listing.find({category:category.toLowerCase()})
+  }
+  else {
+    allListing = await Listing.find({});
+  }
+  res.render("listings/index.ejs", { allListing,category });
 };
 
 module.exports.renderNewForm = (req, res) => {

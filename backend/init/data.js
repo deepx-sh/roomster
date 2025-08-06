@@ -1,3 +1,19 @@
+const categories = [
+  "Trending",
+  "Beach",
+  "Cities",
+  "Amazing views",
+  "Mountains",
+  "Nature",
+  "Homestays",
+  "Cabins",
+  "Desert",
+  "Camping",
+  "Luxe",
+  "Historical",
+  "Pools",
+  "Castles",
+];
 const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",
@@ -349,5 +365,12 @@ const sampleListings = [
   },
 ];
 
+
+
+// Add random category
+for (let listing of sampleListings) {
+  const randomIndex = Math.floor(Math.random() * categories.length);
+  listing.category = categories[randomIndex];
+}
 
 module.exports = { data: sampleListings };
