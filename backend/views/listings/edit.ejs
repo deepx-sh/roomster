@@ -90,6 +90,34 @@
         <div class="invalid-feedback">Please provide a valid country.</div>
       </div>
 
+      <div class="mb-3">
+  <label for="category" class="form-label">Category</label>
+  <select name="listing[category]" id="category" class="form-select" required>
+    <option disabled value="">Select a category</option>
+    <% const categories = [
+  "trending",
+  "beach",
+  "cities",
+  "amazing views",
+  "mountains",
+  "nature",
+  "homestays",
+  "cabin",
+  "desert",
+  "camping",
+  "luxe",
+  "historical",
+  "pools",
+  "castles",
+]; %>
+    <% categories.forEach(cat => { %>
+      <option value="<%= cat %>" <%= listing.category === cat ? "selected" : "" %>><%= cat.charAt(0).toUpperCase() + cat.slice(1); %></option>
+    <% }); %>
+  </select>
+  <div class="valid-feedback">Looks good!</div>
+  <div class="invalid-feedback">Please select a category.</div>
+</div>
+
       <button class="btn mt-3 edt-btn mb-2">Edit</button>
     </form>
   </div>
