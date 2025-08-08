@@ -20,6 +20,7 @@ const LocalStategy = require('passport-local');
 const User=require('./models/user.js')
 const port = 3001;
 
+const dbURL = process.env.ATLASDB_URL;
 main()
   .then(() => {
     console.log("Connected to MongoDB");
@@ -29,7 +30,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/roomster");
+  await mongoose.connect(dbURL);
 }
 
 app.set("view engine", "ejs");
