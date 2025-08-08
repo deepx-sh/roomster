@@ -44,19 +44,21 @@ app.use(express.static(path.join(__dirname, "public")));
 const sessionOptions = {
   store: MongoStore.create({
     crypto: {
-      secret: "jhgaseuohohase"
+      secret: process.env.SECRET_SESSION_CRYPTO
     },
     mongoUrl: process.env.ATLASDB_URL,
     touchAfter: 24 * 3600,
     ttl:14 * 24 * 60 * 60 // = 14 days (time to live)
   }),
-  secret: "jhgaseuohohase",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite:"lax",
   },
 };
 
