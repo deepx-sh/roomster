@@ -14,6 +14,7 @@ const listingsRoutes = require("./routes/listingsRoutes.js");
 const reviewsRoutes = require("./routes/reviewsRoutes.js");
 const userRoutes=require('./routes/usersRoutes.js')
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require('passport');
 const LocalStategy = require('passport-local');
@@ -41,6 +42,14 @@ app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionOptions = {
+  store: MongoStore.create({
+    crypto: {
+      secret: "jhgaseuohohase"
+    },
+    mongoUrl: process.env.ATLASDB_URL,
+    touchAfter: 24 * 3600,
+    ttl:14 * 24 * 60 * 60 // = 14 days (time to live)
+  }),
   secret: "jhgaseuohohase",
   resave: false,
   saveUninitialized: true,
