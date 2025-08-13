@@ -34,6 +34,18 @@
         </li>
       </ul>
 
+      <form class="d-flex mx-auto" role="search" action="/listings/search" method="GET">
+  <input
+    class="form-control me-2"
+    type="search"
+    name="q"
+    placeholder="Search listings..."
+    aria-label="Search"
+    required
+  />
+  <button class="btn btn-outline-primary" type="submit">Search</button>
+</form>
+
       <!-- Right-aligned auth buttons -->
       <ul class="navbar-nav">
         <% if (!currUser) { %>
