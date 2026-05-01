@@ -9,7 +9,7 @@ const userController=require("../controllers/user.js")
 router.route("/signup")
 .get(userController.renderSignupForm )
 .post(
-  wrapAsync(userController.createReview)
+  wrapAsync(userController.signUp)
 );
 
 
