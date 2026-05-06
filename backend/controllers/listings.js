@@ -15,6 +15,23 @@ module.exports.index = async (req, res) => {
   res.render("listings/index.ejs", { allListing,category });
 };
 
+module.exports.searchListing = async (req, rse) => {
+  const { q } = req.query;
+
+  if (!q || !q.trim()) {
+    return res.redirect("/listings")
+  }
+
+  const regex = new RegExp(q.trim(), "i");
+  const allListing = await Listing.find({
+    $or: [
+      { title: regex },
+      { location: regex },
+      { country: regex },
+      {description:regex}
+    ]
+  })
+}
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
