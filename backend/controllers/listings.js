@@ -31,6 +31,7 @@ module.exports.searchListing = async (req, rse) => {
       {description:regex}
     ]
   })
+  res.render("/listings/index.ejs",{allListing,category:null})
 }
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");

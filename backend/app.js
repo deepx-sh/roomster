@@ -96,7 +96,7 @@ app.use((req, res, next) => {
 });
 // Custom Error Handling Middleware
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Something went wrog!" } = err;
+  let { statusCode = 500, message = "Something went wrong!" } = err;
   res.status(statusCode).render("Error.ejs", { err });
 });
 app.listen(port, () => {
