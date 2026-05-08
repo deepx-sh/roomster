@@ -34,7 +34,7 @@ module.exports.isOwner = async(req, res, next) => {
 // This middleware bind the logic of the joi tool
 module.exports.validatelistingSchema = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
-  console.log(error);
+  
   if (error) {
     const msg = error.details.map((el) => el.message).join(", ");
     throw new ExpressError(400, msg);
