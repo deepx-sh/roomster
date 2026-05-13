@@ -69,6 +69,11 @@ module.exports.createListing = async (req, res, next) => {
   // }
   // Above code is comment out because we create another middleware to bind joi tool logic
   try {
+
+    if (!req.file) {
+      req.flash("error", "Please upload an image");
+      return res.redirect("/listings/new")
+    }
     let url = req.file.path;
     let filename = req.file.filename;
     const newListing = await new Listing(req.body.listing);
@@ -77,11 +82,20 @@ module.exports.createListing = async (req, res, next) => {
 
     // Geo Code
     let address = req.body.listing.location;
-    const { lat, lng } = await getCoordinates(address);
+    try {
+      const { lat, lng } = await getCoordinates(address);
     newListing.geometry = {
       type: "Point",
       coordinates: [lng, lat],
     };
+    } catch (error) {
+      console.log("Geocoding failed", error.message);
+      
+      newListing.geometry = {
+      type: "Point",
+      coordinates: [0, 0],
+    };
+    }
     await newListing.save();
     req.flash("successMsg", "Listing created successfully!");
     res.redirect("/listings");
