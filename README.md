@@ -21,7 +21,7 @@ A full-stack Airbnb-inspired property listing platform built with Node.js, Expre
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
