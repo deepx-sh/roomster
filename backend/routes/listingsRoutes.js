@@ -13,6 +13,7 @@ const {
 } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 
+router.get("/search",wrapAsync(listingController.searchListing))
 router
   .route("/")
   .get(wrapAsync(listingController.index))
