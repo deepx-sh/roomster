@@ -15,7 +15,7 @@ module.exports.index = async (req, res) => {
   res.render("listings/index.ejs", { allListing,category,searchQuery:null });
 };
 
-module.exports.searchListing = async (req, rse) => {
+module.exports.searchListing = async (req, res) => {
   const { q } = req.query;
 
   if (!q || !q.trim()) {
@@ -31,7 +31,7 @@ module.exports.searchListing = async (req, rse) => {
       {description:regex}
     ]
   })
-  res.render("/listings/index.ejs",{allListing,category:null,searchQuery:q.trim()})
+  res.render("listings/index.ejs",{allListing,category:null,searchQuery:q.trim()})
 }
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
